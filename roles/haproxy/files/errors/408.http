@@ -1,0 +1,10 @@
+HTTP/1.0 408 Request Timeout
+Content-Type: text/html
+
+<html>
+<head><title>408 Request Timeout</title></head>
+<body>
+<h1>408 Request Timeout</h1>
+<p>Your browser failed to send a request in the time allowed by the server.</p>
+</body>
+</html>

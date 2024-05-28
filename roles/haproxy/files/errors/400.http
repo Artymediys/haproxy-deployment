@@ -1,0 +1,10 @@
+HTTP/1.0 400 Bad Request
+Content-Type: text/html
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body>
+<h1>400 Bad Request</h1>
+<p>Your request has bad syntax or is inherently impossible to satisfy.</p>
+</body>
+</html>

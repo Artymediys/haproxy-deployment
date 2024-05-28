@@ -9,6 +9,23 @@
     sysctl_file: /etc/sysctl.conf
   notify: Restart HAProxy and Keepalived
 
+- name: Copy HAProxy error pages
+  copy:
+    src: "errors/{{ item }}"
+    dest: "/etc/haproxy/errors/{{ item }}"
+    owner: haproxy
+    group: haproxy
+    mode: '0644'
+  with_items:
+    - 400.http
+    - 403.http
+    - 408.http
+    - 500.http
+    - 502.http
+    - 503.http
+    - 504.http
+  notify: Restart HAProxy and Keepalived
+
 - name: Configure HAProxy
   template:
     src: haproxy.cfg.j2
