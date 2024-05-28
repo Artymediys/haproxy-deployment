@@ -1,0 +1,9 @@
+---
+- name: Creating HAProxy and Keepalived users and groups
+  import_tasks: users.yml
+
+- name: Installing HAProxy and Keepalived
+  import_tasks: install.yml
+
+- name: Configuring HAProxy and Keepalived
+  import_tasks: configure.yml

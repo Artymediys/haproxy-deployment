@@ -1,0 +1,12 @@
+---
+- name: Install HAProxy
+  package:
+    name: haproxy
+    state: present
+  notify: Restart HAProxy and Keepalived
+
+- name: Install keepalived
+  package:
+    name: keepalived
+    state: present
+  notify: Restart HAProxy and Keepalived

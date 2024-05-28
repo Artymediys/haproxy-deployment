@@ -1,0 +1,6 @@
+---
+- name: Installing and configuring HAProxy + Keepalived
+  hosts: haproxy_servers
+  become: yes
+  roles:
+    - role: haproxy

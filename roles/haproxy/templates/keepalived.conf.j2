@@ -1,0 +1,27 @@
+global_defs {
+  router_id lb{{ keepalived_id }}
+}
+
+vrrp_script check_haproxy {
+  script "/usr/bin/systemctl is-active --quiet haproxy"
+  interval 2
+  weight 2
+}
+
+vrrp_instance VI_{{ keepalived_id }} {
+    state {{ keepalived_state }}
+    interface {{ keepalived_interface }}
+    virtual_router_id {{ keepalived_virtual_router_id }}
+    priority {{ keepalived_priority }}
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass {{ keepalived_password }}
+    }
+    virtual_ipaddress {
+        {{ keepalived_vip_address }}
+    }
+    track_script {
+        check_haproxy
+    }
+}

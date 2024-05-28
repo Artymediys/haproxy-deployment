@@ -1,0 +1,35 @@
+---
+- name: Create haproxy group
+  group:
+    name: haproxy
+    system: yes
+  notify: Restart HAProxy and Keepalived
+
+- name: Create haproxy user
+  user:
+    name: haproxy
+    system: yes
+    shell: /usr/sbin/nologin
+    group: haproxy
+  notify: Restart HAProxy and Keepalived
+
+- name: Create keepalived group
+  group:
+    name: keepalived
+    system: yes
+  notify: Restart HAProxy and Keepalived
+
+- name: Create keepalived user
+  user:
+    name: keepalived
+    system: yes
+    shell: /usr/sbin/nologin
+    group: keepalived
+  notify: Restart HAProxy and Keepalived
+
+- name: Create keepalived_script user
+  user:
+    name: keepalived_script
+    system: yes
+    shell: /usr/sbin/nologin
+  notify: Restart HAProxy and Keepalived
