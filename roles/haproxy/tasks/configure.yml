@@ -9,6 +9,24 @@
     sysctl_file: /etc/sysctl.conf
   notify: Restart HAProxy and Keepalived
 
+- name: Create directory for HAProxy UNIX socket
+  file:
+    path: /run/haproxy
+    state: directory
+    owner: haproxy
+    group: haproxy
+    mode: '0755'
+  notify: Restart HAProxy and Keepalived
+
+- name: Create HAProxy error pages directory
+  file:
+    path: /etc/haproxy/errors
+    state: directory
+    owner: haproxy
+    group: haproxy
+    mode: '0755'
+  notify: Restart HAProxy and Keepalived
+
 - name: Copy HAProxy error pages
   copy:
     src: "errors/{{ item }}"
