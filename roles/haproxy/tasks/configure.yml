@@ -44,6 +44,20 @@
     - 504.http
   notify: Restart HAProxy and Keepalived
 
+- name: Create HAProxy log files
+  file:
+    path: "{{ item }}"
+    state: touch
+    owner: "{{ haproxy_user }}"
+    group: "{{ haproxy_group }}"
+    mode: '0644'
+  loop: # const values, don't change them!
+    - /var/log/haproxy.log
+    - /var/log/haproxy-status.log
+  notify:
+    - Restart HAProxy and Keepalived
+    - Restart rsyslog
+
 - name: Configure rsyslog for HAProxy
   template:
     src: haproxy.conf.j2
@@ -52,6 +66,7 @@
     group: "{{ haproxy_group }}"
     mode: '0644'
   notify:
+    - Restart HAProxy and Keepalived
     - Restart rsyslog
 
 - name: Configure HAProxy

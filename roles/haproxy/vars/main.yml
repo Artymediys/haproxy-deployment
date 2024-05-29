@@ -4,11 +4,13 @@ haproxy_group: haproxy
 haproxy_config_file: /etc/haproxy/haproxy.cfg
 haproxy_errors_directory: /etc/haproxy/errors
 haproxy_frontend_port: 80
-haproxy_stats_enabled: true
+haproxy_balance_algorithm: roundrobin # static-rr  leastconn  first  source  uri  url_param  hdr  rdp-cookie
+haproxy_stats_enabled: true # false
+haproxy_stats_admin: true # false
 haproxy_stats_port: 8404
+haproxy_stats_refresh: 10s # 30s 90s
 haproxy_stats_user: admin
 haproxy_stats_password: admin
-haproxy_balance_algorithm: roundrobin # static-rr  leastconn  first  source  uri  url_param  hdr  rdp-cookie
 
 keepalived_user: keepalived
 keepalived_group: keepalived

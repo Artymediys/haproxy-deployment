@@ -27,8 +27,7 @@
     name: keepalived
     enabled: yes
 
-- name: Ensure rsyslog is enabled and started
+- name: Ensure rsyslog is enabled
   systemd:
     name: rsyslog
     enabled: yes
-    state: started
