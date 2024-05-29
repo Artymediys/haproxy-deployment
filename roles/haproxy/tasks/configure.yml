@@ -11,19 +11,19 @@
 
 - name: Create directory for HAProxy UNIX socket
   file:
-    path: /run/haproxy
+    path: /run/haproxy # const value, don't change it!
     state: directory
-    owner: haproxy
-    group: haproxy
+    owner: "{{ haproxy_user }}"
+    group: "{{ haproxy_group }}"
     mode: '0755'
   notify: Restart HAProxy and Keepalived
 
 - name: Create HAProxy error pages directory
   file:
-    path: /etc/haproxy/errors
+    path: "{{ haproxy_errors_directory }}"
     state: directory
-    owner: haproxy
-    group: haproxy
+    owner: "{{ haproxy_user }}"
+    group: "{{ haproxy_group }}"
     mode: '0755'
   notify: Restart HAProxy and Keepalived
 
@@ -31,8 +31,8 @@
   copy:
     src: "errors/{{ item }}"
     dest: "/etc/haproxy/errors/{{ item }}"
-    owner: haproxy
-    group: haproxy
+    owner: "{{ haproxy_user }}"
+    group: "{{ haproxy_group }}"
     mode: '0644'
   with_items:
     - 400.http
@@ -44,12 +44,22 @@
     - 504.http
   notify: Restart HAProxy and Keepalived
 
+- name: Configure rsyslog for HAProxy
+  template:
+    src: haproxy.conf.j2
+    dest: /etc/rsyslog.d/haproxy.conf # const value, don't change it!
+    owner: "{{ haproxy_user }}"
+    group: "{{ haproxy_group }}"
+    mode: '0644'
+  notify:
+    - Restart rsyslog
+
 - name: Configure HAProxy
   template:
     src: haproxy.cfg.j2
     dest: "{{ haproxy_config_file }}"
-    owner: haproxy
-    group: haproxy
+    owner: "{{ haproxy_user }}"
+    group: "{{ haproxy_group }}"
     mode: '0644'
   notify: Restart HAProxy and Keepalived
 
@@ -57,7 +67,7 @@
   template:
     src: keepalived.conf.j2
     dest: "{{ keepalived_config_file }}"
-    owner: keepalived
-    group: keepalived
+    owner: "{{ keepalived_user }}"
+    group: "{{ keepalived_group }}"
     mode: '0644'
   notify: Restart HAProxy and Keepalived

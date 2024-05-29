@@ -1,13 +1,19 @@
 ---
+haproxy_user: haproxy
+haproxy_group: haproxy
 haproxy_config_file: /etc/haproxy/haproxy.cfg
+haproxy_errors_directory: /etc/haproxy/errors
+haproxy_frontend_port: 80
 haproxy_stats_enabled: true
 haproxy_stats_port: 8404
 haproxy_stats_user: admin
 haproxy_stats_password: admin
 haproxy_balance_algorithm: roundrobin # static-rr  leastconn  first  source  uri  url_param  hdr  rdp-cookie
 
+keepalived_user: keepalived
+keepalived_group: keepalived
 keepalived_config_file: /etc/keepalived/keepalived.conf
-keepalived_interface: eth0 # enp0s3
+keepalived_interface: enp0s3 # eth0 en0
 keepalived_virtual_router_id: 123
 keepalived_password: securepass
 keepalived_vip_address: 192.168.1.10

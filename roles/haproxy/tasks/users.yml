@@ -1,35 +1,35 @@
 ---
 - name: Create haproxy group
   group:
-    name: haproxy
+    name: "{{ haproxy_group }}"
     system: yes
   notify: Restart HAProxy and Keepalived
 
 - name: Create haproxy user
   user:
-    name: haproxy
+    name: "{{ haproxy_user }}"
     system: yes
     shell: /usr/sbin/nologin
-    group: haproxy
+    group: "{{ haproxy_group }}"
   notify: Restart HAProxy and Keepalived
 
 - name: Create keepalived group
   group:
-    name: keepalived
+    name: "{{ keepalived_group }}"
     system: yes
   notify: Restart HAProxy and Keepalived
 
 - name: Create keepalived user
   user:
-    name: keepalived
+    name: "{{ keepalived_user }}"
     system: yes
     shell: /usr/sbin/nologin
-    group: keepalived
+    group: "{{ keepalived_group }}"
   notify: Restart HAProxy and Keepalived
 
 - name: Create keepalived_script user
   user:
-    name: keepalived_script
+    name: keepalived_script # const value, don't change it!
     system: yes
     shell: /usr/sbin/nologin
   notify: Restart HAProxy and Keepalived

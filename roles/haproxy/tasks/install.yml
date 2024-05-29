@@ -10,3 +10,25 @@
     name: keepalived
     state: present
   notify: Restart HAProxy and Keepalived
+
+- name: Install rsyslog
+  package:
+    name: rsyslog
+    state: present
+  notify: Restart rsyslog
+
+- name: Ensure HAProxy is enabled
+  systemd:
+    name: haproxy
+    enabled: yes
+
+- name: Ensure Keepalived is enabled
+  systemd:
+    name: keepalived
+    enabled: yes
+
+- name: Ensure rsyslog is enabled and started
+  systemd:
+    name: rsyslog
+    enabled: yes
+    state: started
