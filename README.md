@@ -1,2 +1,40 @@
-# haproxy-deployment
-Ansible-playbook for HAProxy deployment
+# Ansible-роль для HAProxy с Keepalived
+Роль устанавливает и настраивает HAProxy с Keepalived для балансировки MinIO нод.
+Перед запуском роли рекомендуется указать хосты в файле `hosts.ini` по образцу из данного репозитория,
+а также изменить необходимые переменные в `roles/haproxy/vars/main.yml`.
+
+## Зависимости
+Ansible-роль устанавливает пакеты **HAProxy**, **Keepalived**, **rsyslog** через пакетный менеджер,
+поэтому требуется наличие доступа к репозиторию пакетов.
+
+## Рекомендуемые изменения переменных роли
+Ниже представлена часть переменных, рекомендуемых для изменения:
+
+### HAProxy
+- `haproxy_balance_algorithm`: Алгоритм балансировки
+- `haproxy_stats_admin`: Позволяет выполнять административные действия через веб-интерфейс статистики
+- `haproxy_stats_refresh`: Интервал обновления статистики
+- `haproxy_stats_user`: Логин для входа в панель статистики
+- `haproxy_stats_password`: Пароль для входа в панель статистики
+
+### Keepalived
+- `keepalived_password`: Пароль для защиты виртуальных маршрутизаторов VRRP
+- `keepalived_interface`: Сетевой интерфейс, на котором будет выделяться виртуальный ip адрес (VIP)
+- `keepalived_vip_address`: Виртуальный ip адрес (VIP)
+
+## HTTP-ошибки
+В директории `roles/haproxy/files/errors` лежат файлы с http-ошибками, которые использует HAProxy
+в случае возникновения ошибок с определённым кодом. Файлы кастомизируемые, так что в случае необходимости их можно
+настроить под себя.
+
+## Запуск роли
+Для запуска роли предусмотрен файл `main.yml` в корне репозитория.  
+
+Пример использования роли:
+```yaml
+- name: Installing and configuring HAProxy + Keepalived
+  hosts: haproxy_servers
+  become: yes
+  roles:
+    - role: haproxy
+```
