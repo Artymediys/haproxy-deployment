@@ -1,36 +1,36 @@
-# Ansible-роль для HAProxy с Keepalived
-Роль устанавливает и настраивает HAProxy с Keepalived для балансировки MinIO нод.
-Перед запуском роли рекомендуется указать хосты в файле `hosts.ini` по образцу из данного репозитория,
-а также изменить необходимые переменные в `roles/haproxy/vars/main.yml`.
+# Ansible Role for HAProxy with Keepalived
+This role installs and configures HAProxy with Keepalived for balancing MinIO nodes.
+Before running the role, it is recommended to specify hosts in the `hosts.ini` file following the example from this repository,
+and also modify the necessary variables in `roles/haproxy/vars/main.yml`.
 
-## Зависимости
-Ansible-роль устанавливает пакеты **HAProxy**, **Keepalived**, **rsyslog** через пакетный менеджер,
-поэтому требуется наличие доступа к репозиторию пакетов.
+## Dependencies
+The Ansible role installs **HAProxy**, **Keepalived**, **rsyslog** packages through the package manager,
+so access to the package repository is required.
 
-## Рекомендуемые изменения переменных роли
-Ниже представлена часть переменных, рекомендуемых для изменения:
+## Recommended Role Variable Changes
+Below are some variables recommended for modification:
 
 ### HAProxy
-- `haproxy_balance_algorithm`: Алгоритм балансировки
-- `haproxy_stats_admin`: Позволяет выполнять административные действия через веб-интерфейс статистики
-- `haproxy_stats_refresh`: Интервал обновления статистики
-- `haproxy_stats_user`: Логин для входа в панель статистики
-- `haproxy_stats_password`: Пароль для входа в панель статистики
+- `haproxy_balance_algorithm`: Balancing algorithm
+- `haproxy_stats_admin`: Allows administrative actions through the statistics web interface
+- `haproxy_stats_refresh`: Statistics refresh interval
+- `haproxy_stats_user`: Username for accessing the statistics panel
+- `haproxy_stats_password`: Password for accessing the statistics panel
 
 ### Keepalived
-- `keepalived_password`: Пароль для защиты виртуальных маршрутизаторов VRRP
-- `keepalived_interface`: Сетевой интерфейс, на котором будет выделяться виртуальный ip адрес (VIP)
-- `keepalived_vip_address`: Виртуальный ip адрес (VIP)
+- `keepalived_password`: Password for protecting VRRP virtual routers
+- `keepalived_interface`: Network interface on which the virtual IP address (VIP) will be allocated
+- `keepalived_vip_address`: Virtual IP address (VIP)
 
-## HTTP-ошибки
-В директории `roles/haproxy/files/errors` лежат файлы с http-ошибками, которые использует HAProxy
-в случае возникновения ошибок с определённым кодом. Файлы кастомизируемые, так что в случае необходимости их можно
-настроить под себя.
+## HTTP Errors
+In the `roles/haproxy/files/errors` directory, there are files with HTTP errors that HAProxy uses
+in case of errors with a specific code. The files are customizable, so if necessary, they can be
+adjusted to your needs.
 
-## Запуск роли
-Для запуска роли предусмотрен файл `main.yml` в корне репозитория.  
+## Running the Role
+To run the role, there is a `main.yml` file in the root of the repository.
 
-Пример использования роли:
+Example of using the role:
 ```yaml
 - name: Installing and configuring HAProxy + Keepalived
   hosts: haproxy_servers
