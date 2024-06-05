@@ -2,33 +2,69 @@
 ####################################
 ######### HAProxy Settings #########
 ####################################
+
+# User and group for HAProxy
 haproxy_user: haproxy
 haproxy_group: haproxy
 
+# Path to the main HAProxy configuration file
 haproxy_config_file: /etc/haproxy/haproxy.cfg
+
+# Directory for storing HAProxy error pages
 haproxy_errors_directory: /etc/haproxy/errors
 
+# Port on which HAProxy will accept incoming connections
 haproxy_frontend_port: 80
-haproxy_balance_algorithm: roundrobin # static-rr  leastconn  first  source  uri  url_param  hdr  rdp-cookie
 
+# Load balancing algorithm used by HAProxy
+# Options: roundrobin, static-rr, leastconn, first, source, uri, url_param, hdr, rdp-cookie
+haproxy_balance_algorithm: roundrobin
+
+# Port for accessing HAProxy statistics
 haproxy_stats_port: 8404
-haproxy_stats_uri: /stats # /haproxy-stats /some-super-uri
-haproxy_stats_enabled: true # false
-haproxy_stats_admin: true # false
-haproxy_stats_refresh: 10s # 30s 90s
-haproxy_stats_user: admin # some-your-login
-haproxy_stats_password: password # some-your-password
+
+# URI for accessing HAProxy statistics
+# Examples: /stats, /haproxy-stats, /some-super-uri
+haproxy_stats_uri: /stats
+
+# Enable or disable HAProxy statistics
+# Options: true, false
+haproxy_stats_enabled: true
+
+# Enable or disable administrative actions from the HAProxy statistics page
+# Options: true, false
+haproxy_stats_admin: true
+
+# Refresh interval for the HAProxy statistics page
+# Examples: 10s, 30s, 90s
+haproxy_stats_refresh: 10s
+
+# Username and password for accessing HAProxy statistics
+haproxy_stats_user: some-your-login
+haproxy_stats_password: some-your-password
 
 
 #####################################
 ######## Keepalived Settings ########
 #####################################
+
+# User and group for Keepalived
 keepalived_user: keepalived
 keepalived_group: keepalived
 
+# Path to the main Keepalived configuration file
 keepalived_config_file: /etc/keepalived/keepalived.conf
-keepalived_virtual_router_id: 123 # any number-value can be used here
-keepalived_password: securepass # some-your-password
 
-keepalived_interface: enp0s3 # eth0 en0
+# Virtual Router ID (VRID) for Keepalived
+# Any numeric value can be used
+keepalived_virtual_router_id: 123
+
+# Password for authenticating Keepalived VRRP messages
+keepalived_password: some-your-password
+
+# Network interface on which the virtual IP address (VIP) will be created
+# Examples: enp0s3, eth0, en0
+keepalived_interface: enp0s3
+
+# Virtual IP address (VIP) managed by Keepalived
 keepalived_vip_address: 192.168.1.10

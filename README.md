@@ -1,7 +1,7 @@
 # Ansible Role for HAProxy with Keepalived
 This role installs and configures HAProxy with Keepalived for balancing MinIO nodes.
-Before running the role, it is recommended to specify hosts in the `hosts.ini` file following the example from this repository,
-and also modify the necessary variables in `roles/haproxy/vars/main.yml`.
+Before running the role, it is recommended to specify hosts in the `./hosts.ini` file following the example from this repository,
+and also modify the necessary variables in `./roles/haproxy/vars/main.yml`.
 
 ## Dependencies
 The Ansible role installs **HAProxy**, **Keepalived**, **rsyslog** packages through the package manager,
@@ -22,13 +22,15 @@ Below are some variables recommended for modification:
 - `keepalived_interface`: Network interface on which the virtual IP address (VIP) will be allocated
 - `keepalived_vip_address`: Virtual IP address (VIP)
 
+A more detailed description and usage examples are provided in `./roles/haproxy/vars/main.yml`
+
 ## HTTP Errors
-In the `roles/haproxy/files/errors` directory, there are files with HTTP errors that HAProxy uses
+In the `./roles/haproxy/files/errors` directory, there are files with HTTP errors that HAProxy uses
 in case of errors with a specific code. The files are customizable, so if necessary, they can be
 adjusted to your needs.
 
 ## Running the Role
-To run the role, there is a `main.yml` file in the root of the repository.
+To run the role, there is a `./main.yml` file in the root of the repository.
 
 Example of using the role:
 ```yaml
